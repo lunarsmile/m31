@@ -23,8 +23,7 @@ public class M31 {
       .handler(new ChannelInitializer<SocketChannel>() {
         @Override
         protected void initChannel(SocketChannel ch) {
-          ch.pipeline()
-            .addLast(new LoggingHandler(LogLevel.TRACE));
+          ch.pipeline().addLast(new LoggingHandler(LogLevel.TRACE));
         }
       });
   }
