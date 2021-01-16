@@ -8,6 +8,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import m31.server.ServerReqHandler;
 
 import java.io.Closeable;
 
@@ -26,7 +27,7 @@ public class M31d implements Closeable {
        .childHandler(new ChannelInitializer<SocketChannel>() {
          @Override
          protected void initChannel(SocketChannel ch) {
-           ch.pipeline().addLast(loggingHandler);
+           ch.pipeline().addLast(loggingHandler, new ServerReqHandler());
          }
        }).bind(port);
   }

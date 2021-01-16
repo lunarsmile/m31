@@ -9,7 +9,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ClientReqHandler extends ChannelInboundHandlerAdapter {
 
-  private Session session;
+  private ClientSession session;
 
   @Override
   public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
