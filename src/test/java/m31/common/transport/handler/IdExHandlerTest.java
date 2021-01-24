@@ -1,13 +1,16 @@
-package m31.common;
+package m31.common.transport.handler;
 
 import io.netty.buffer.Unpooled;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.Assert.*;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class IdExHandlerTest {
 
   private final Charset utf8 = StandardCharsets.UTF_8;
