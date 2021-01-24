@@ -28,4 +28,12 @@ public class BytesTest {
 
     assertArrayEquals(new byte[]{(byte) 0x08, (byte) 0x02, (byte) 0x011}, Bytes.concat(a, null, b));
   }
+
+  @Test
+  public void testToBytes_shouldReturnsInBigEndian() {
+    byte[] expected = {(byte) 0x79, (byte) 0x34, (byte) 0x7F, (byte) 0x50};
+
+    assertArrayEquals(expected, Bytes.toBytes(0x79347F50));
+  }
+
 }

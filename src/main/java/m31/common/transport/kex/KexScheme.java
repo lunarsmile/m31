@@ -53,12 +53,7 @@ public enum KexScheme implements NamedObject {
       String scheme = ks.getScheme();
 
       byte[] payload = scheme.getBytes(StandardCharsets.UTF_8);
-
-      byte[] header = new byte[4];
-      header[0] = (byte) (payload.length >>> 24);
-      header[1] = (byte) (payload.length >>> 16);
-      header[2] = (byte) (payload.length >>> 8);
-      header[3] = (byte) (payload.length);
+      byte[] header = Bytes.toBytes(payload.length);
 
       joined = Bytes.concat(joined, header, payload);
     }

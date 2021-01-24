@@ -1,7 +1,7 @@
 package m31.util;
 
 /**
- * Utility code for dealing with byte array operations.
+ * Static utility methods pertain to primitive byte array operations.
  */
 public final class Bytes {
 
@@ -52,5 +52,30 @@ public final class Bytes {
     }
 
     return res;
+  }
+
+  /**
+   * Convert an unsigned integer to big-endian (network byte order) byte array
+   *
+   * <p>
+   *   The new array is a 4-byte array represents the given {@code num}
+   * </p>
+   *
+   * <pre>
+   *   Bytes.toBytes(0x79347F50) = {(byte) 0x79, (byte) 0x34, (byte) 0x7F, (byte) 0x50}
+   * </pre>
+   *
+   * @param num The unsigned integer in host byte order
+   * @return    The network byte order byte array of {@code num}
+   *
+   * @see <a href="https://en.wikipedia.org/wiki/Endianness">Endianness</a>
+   */
+  public static byte[] toBytes(long num) {
+    return new byte[] {
+        (byte) (num >>> 24),
+        (byte) (num >>> 16),
+        (byte) (num >>> 8),
+        (byte) (num)
+    };
   }
 }
