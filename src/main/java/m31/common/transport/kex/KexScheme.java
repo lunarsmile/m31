@@ -42,7 +42,7 @@ public enum KexScheme implements NamedObject {
   /**
    * Construct the key exchange initialization packet.
    */
-  public static byte[] getBytes() {
+  public static byte[] toBytes() {
     SecureRandom rand = new SecureRandom();
 
     byte[] cookie = new byte[M31Constant.MSG_KEX_COOKIE_SIZE];
@@ -53,7 +53,7 @@ public enum KexScheme implements NamedObject {
       String scheme = ks.getScheme();
 
       byte[] payload = scheme.getBytes(StandardCharsets.UTF_8);
-      byte[] header = Bytes.toBytes(payload.length);
+      byte[] header = Bytes.fromInt(payload.length);
 
       joined = Bytes.concat(joined, header, payload);
     }
