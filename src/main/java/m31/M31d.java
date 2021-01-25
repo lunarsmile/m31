@@ -21,15 +21,22 @@ public class M31d implements Closeable {
     ServerBootstrap sbs = new ServerBootstrap();
     LoggingHandler loggingHandler = new LoggingHandler(LogLevel.TRACE);
 
-    sbs.group(boss, worker)
-       .channel(NioServerSocketChannel.class)
-       .handler(loggingHandler)
-       .childHandler(new ChannelInitializer<SocketChannel>() {
-         @Override
-         protected void initChannel(SocketChannel ch) {
-           ch.pipeline().addLast(loggingHandler, new ServerReqHandler());
-         }
-       }).bind(port);
+    try {
+      sbs.group(boss, worker)
+         .channel(NioServerSocketChannel.class)
+         .handler(loggingHandler)
+         .childHandler(new ChannelInitializer<SocketChannel>() {
+           @Override
+           protected void initChannel(SocketChannel ch) {
+             ch.pipeline().addLast(loggingHandler, new ServerReqHandler());
+           }
+         }).bind(port).sync().channel().closeFuture().sync();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    } finally {
+        boss.shutdownGracefully();
+        worker.shutdownGracefully();
+    }
   }
 
   @Override
