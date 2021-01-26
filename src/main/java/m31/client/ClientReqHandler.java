@@ -21,7 +21,7 @@ public class ClientReqHandler extends ChannelInboundHandlerAdapter {
 
   @Override
   public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
-    session = new ClientSession();
+    session = new ClientSession(ctx.channel());
   }
 
   @Override
@@ -35,7 +35,7 @@ public class ClientReqHandler extends ChannelInboundHandlerAdapter {
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     String serverId = session.getServerId();
     if (serverId == null) {
-      serverId = IdExHandler.getId((ByteBuf) msg);
+      serverId = IdExHandler.parseId((ByteBuf) msg);
       if (serverId == null) {
         return;
       }
@@ -44,7 +44,7 @@ public class ClientReqHandler extends ChannelInboundHandlerAdapter {
 
       session.setServerId(serverId);
 
-      Attribute<CompletableFuture<Session>> attr = ctx.channel().attr(Session.SSH_CONNECT_FUTURE);
+      Attribute<CompletableFuture<Session>> attr = ctx.channel().attr(Session.M31_CONNECT_FUTURE);
 
       CompletableFuture<Session> connectResult = attr.get();
       connectResult.complete(session);

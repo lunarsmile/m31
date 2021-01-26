@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public interface Session extends Closeable {
 
-  AttributeKey<CompletableFuture<Session>> SSH_CONNECT_FUTURE =
+  AttributeKey<CompletableFuture<Session>> M31_CONNECT_FUTURE =
       AttributeKey.valueOf(Session.class.getName());
 
   Set<Session> sessions = new CopyOnWriteArraySet<>();
@@ -19,4 +19,8 @@ public interface Session extends Closeable {
   default void close() throws IOException {
     sessions.remove(this);
   }
+
+  String getClientId();
+
+  String getServerId();
 }

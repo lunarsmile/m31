@@ -27,7 +27,7 @@ public class ServerReqHandler extends ChannelInboundHandlerAdapter implements Id
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     String clientId = session.getClientId();
     if (clientId == null) {
-      clientId = IdExHandler.getId((ByteBuf) msg);
+      clientId = IdExHandler.parseId((ByteBuf) msg);
       if (clientId == null) {
         return;
       }

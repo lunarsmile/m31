@@ -40,7 +40,7 @@ public class M31 {
     ChannelFuture cf = bs.connect(host, port);
 
     Channel channel = cf.channel();
-    channel.attr(Session.SSH_CONNECT_FUTURE).set(result);
+    channel.attr(Session.M31_CONNECT_FUTURE).set(result);
 
     cf.addListener(f -> {
       Throwable e = f.cause();

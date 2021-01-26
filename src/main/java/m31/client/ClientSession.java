@@ -1,20 +1,23 @@
 package m31.client;
 
-import m31.common.Session;
+import io.netty.channel.Channel;
+import m31.common.AbstractSession;
 
-public class ClientSession implements Session {
+public class ClientSession extends AbstractSession {
 
   private static final String clientId = "C-0.1";
   private String serverId;
 
-  public ClientSession() {
-    sessions.add(this);
+  public ClientSession(Channel channel) {
+    super(channel);
   }
 
+  @Override
   public String getClientId() {
     return clientId;
   }
 
+  @Override
   public String getServerId() {
     return serverId;
   }

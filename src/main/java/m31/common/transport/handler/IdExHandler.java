@@ -35,7 +35,7 @@ public interface IdExHandler {
    * @param buf The {@link ByteBuf} buffer where the ID to be parsed from
    * @return The client or server ID as a string
    */
-  static String getId(ByteBuf buf) {
+  static String parseId(ByteBuf buf) {
     Objects.requireNonNull(buf, "Parameter cannot be null");
 
     int rIdx = buf.readerIndex();
