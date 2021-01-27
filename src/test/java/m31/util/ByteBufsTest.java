@@ -1,4 +1,4 @@
-package m31.common.transport.handler;
+package m31.util;
 
 import io.netty.buffer.Unpooled;
 import org.junit.FixMethodOrder;
@@ -11,29 +11,29 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class IdExHandlerTest {
+public class ByteBufsTest {
 
   private final Charset utf8 = StandardCharsets.UTF_8;
 
   @Test
   public void testGetIdSingleLine() {
     String id = "C-2.0-softwareversion\r\n";
-    String actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    String actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("C-2.0-softwareversion", actual);
 
     id = "S-2.0-softwareversion\r\n";
-    actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("S-2.0-softwareversion", actual);
   }
 
   @Test
   public void testGetIdSingleLineWithoutCR() {
     String id = "C-2.0-softwareversion\n";
-    String actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    String actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("C-2.0-softwareversion", actual);
 
     id = "S-2.0-softwareversion\n";
-    actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("S-2.0-softwareversion", actual);
   }
 
@@ -43,7 +43,7 @@ public class IdExHandlerTest {
 
     IllegalStateException thrown =
         assertThrows(IllegalStateException.class, () -> {
-          IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+          ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
         });
 
     assertNotNull(thrown.getMessage());
@@ -53,11 +53,12 @@ public class IdExHandlerTest {
   @Test
   public void testGetIdMultipleLines() {
     String id = "1st line\r\nC-2.0-softwareversion\r\n";
-    String actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    String actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("C-2.0-softwareversion", actual);
 
     id = "1st line\r\nS-2.0-softwareversion\r\n";
-    actual = IdExHandler.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
+    actual = ByteBufs.parseId(Unpooled.wrappedBuffer(id.getBytes(utf8)));
     assertEquals("S-2.0-softwareversion", actual);
   }
+
 }

@@ -6,7 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.Attribute;
 import m31.common.Session;
-import m31.common.transport.handler.IdExHandler;
+import m31.util.ByteBufs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class ClientReqHandler extends ChannelInboundHandlerAdapter {
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     String serverId = session.getServerId();
     if (serverId == null) {
-      serverId = IdExHandler.parseId((ByteBuf) msg);
+      serverId = ByteBufs.parseId((ByteBuf) msg);
       if (serverId == null) {
         return;
       }

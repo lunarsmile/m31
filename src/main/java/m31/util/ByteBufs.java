@@ -1,16 +1,16 @@
-package m31.common.transport.handler;
+package m31.util;
 
 import io.netty.buffer.ByteBuf;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-public interface IdExHandler {
+public final class ByteBufs {
 
   /**
    * The maximum length of the string is 255 characters, including the Carriage Return and Line Feed.
    */
-  int MAX_IDENTIFICATION_LINE_LENGTH = 255;
+  private static final int MAX_IDENTIFICATION_LINE_LENGTH = 255;
 
   /**
    * Get the remote peer's identification.
@@ -35,7 +35,7 @@ public interface IdExHandler {
    * @param buf The {@link ByteBuf} buffer where the ID to be parsed from
    * @return The client or server ID as a string
    */
-  static String parseId(ByteBuf buf) {
+  public static String parseId(ByteBuf buf) {
     Objects.requireNonNull(buf, "Parameter cannot be null");
 
     int rIdx = buf.readerIndex();
@@ -101,4 +101,7 @@ public interface IdExHandler {
 
     return null;
   }
+
+  /** Private constructor to prevent this class from being explicitly instantiated */
+  private ByteBufs() {}
 }

@@ -5,14 +5,14 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
-import m31.common.transport.handler.IdExHandler;
 import m31.common.transport.kex.KexScheme;
+import m31.util.ByteBufs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.charset.StandardCharsets;
 
-public class ServerReqHandler extends ChannelInboundHandlerAdapter implements IdExHandler {
+public class ServerReqHandler extends ChannelInboundHandlerAdapter {
 
   private final static Logger logger = LoggerFactory.getLogger(ServerReqHandler.class);
 
@@ -27,7 +27,7 @@ public class ServerReqHandler extends ChannelInboundHandlerAdapter implements Id
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     String clientId = session.getClientId();
     if (clientId == null) {
-      clientId = IdExHandler.parseId((ByteBuf) msg);
+      clientId = ByteBufs.parseId((ByteBuf) msg);
       if (clientId == null) {
         return;
       }

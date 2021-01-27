@@ -142,4 +142,7 @@ public final class Bytes {
            (bytes[offset + 2] & 0xFF) << 8  |
            (bytes[offset + 3] & 0xFF) << 0;
   }
+
+  /** Private constructor to prevent this class from being explicitly instantiated */
+  private Bytes() {}
 }
